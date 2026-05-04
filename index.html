@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МедСовет — Онлайн-консультант по здоровью</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon">⚕️</span>
+                <span>МедСовет</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" title="Тёмная тема">🌙</button>
+                <button class="btn-icon" id="historyBtn" title="История чата">📋</button>
+                <span class="header-subtitle">Онлайн-консультант на базе ИИ</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Срочная помощь -->
+    <div class="emergency-banner">
+        <div class="container emergency-banner-content">
+            <span>⚠️ <strong>Внимание!</strong> При угрожающих жизни состояниях звоните <strong>112</strong> или <strong>103</strong>.</span>
+            <button class="btn-emergency" id="emergencyBtn" title="Быстрый вызов">
+                🚑 Вызов скорой
+            </button>
+        </div>
+    </div>
+
+    <main class="container">
+        
+        <!-- Информационная панель -->
+        <div class="info-panel">
+            <div class="info-card">
+                <div class="info-icon">🤖</div>
+                <h3>ИИ-консультант</h3>
+                <p>База знаний из 25+ тем. Работаю без интернета.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">🔒</div>
+                <h3>Анонимно</h3>
+                <p>История только на вашем устройстве. Конфиденциально.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-icon">⏰</div>
+                <h3>24/7</h3>
+                <p>Мгновенные ответы. Всегда доступен.</p>
+            </div>
+        </div>
+
+        <!-- Основной чат -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="doctor-avatar"></div>
+                <div>
+                    <div class="doctor-name">Доктор ИИ</div>
+                    <div class="doctor-status">онлайн</div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Здравствуйте! Я виртуальный консультант по вопросам здоровья.</p>
+                        <p>Опишите симптомы или задайте вопрос — я проанализирую и дам рекомендации.</p>
+                        <p><strong>Что я могу:</strong></p>
+                        <ul>
+                            <li>📋 Подсказать возможные причины симптомов</li>
+                            <li>💊 Рассказать о лекарствах и дозировках</li>
+                            <li>🩺 Объяснить медицинские термины</li>
+                            <li>🏥 Порекомендовать, к какому врачу обратиться</li>
+                        </ul>
+                        <p><em>Помните: мои советы не заменяют очный приём у специалиста.</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Индикатор загрузки -->
+            <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Поле ввода -->
+            <div class="chat-input-area">
+                <textarea 
+                    id="userInput" 
+                    placeholder="Опишите ваши симптомы или задайте вопрос..."
+                    rows="1"
+                    maxlength="1000"
+                ></textarea>
+                <button id="sendBtn" class="btn-send" aria-label="Отправить">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="char-counter">
+                <span id="charCount">0</span>/1000 символов
+            </div>
+        </div>
+
+        <!-- Частые вопросы -->
+        <div class="faq-section">
+            <h2>Частые вопросы</h2>
+            <div class="faq-scroll" id="faqGrid">
+                <button class="faq-btn">Болит голова и температура 37.5 — что делать?</button>
+                <button class="faq-btn">Какие витамины принимать зимой?</button>
+                <button class="faq-btn">Как снизить давление без таблеток?</button>
+                <button class="faq-btn">Боль в пояснице — к какому врачу идти?</button>
+                <button class="faq-btn">Аллергия на пыльцу — симптомы и лечение</button>
+                <button class="faq-btn">Сколько пить воды в день?</button>
+                <button class="faq-btn">Простуда: как быстро вылечиться?</button>
+                <button class="faq-btn">Болит сердце — что делать?</button>
+            </div>
+        </div>
+
+        <!-- Раздел статей -->
+        <section class="articles-section">
+            <h2>Полезные статьи</h2>
+            <div class="articles-grid" id="articlesGrid">
+                <article class="article-card" data-article="immunity">
+                    <h3>🛡️ Как укрепить иммунитет</h3>
+                    <p>Простые способы, которые действительно работают</p>
+                    <span class="read-more">Читать →</span>
+                </article>
+                <article class="article-card" data-article="headache">
+                    <h3>🤕 Виды головной боли</h3>
+                    <p>Как отличить мигрень от головной боли напряжения</p>
+                    <span class="read-more">Читать →</span>
+                </article>
+                <article class="article-card" data-article="sleep">
+                    <h3>😴 Здоровый сон</h3>
+                    <p>7 правил для качественного сна</p>
+                    <span class="read-more">Читать →</span>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>© 2026 МедСовет. Информационный сервис на базе ИИ.</p>
+            <p><strong>Внимание:</strong> Не является медицинским учреждением. При серьёзных симптомах обратитесь к врачу.</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно с дисклеймером -->
+    <div class="modal-overlay" id="disclaimerModal">
+        <div class="modal">
+            <div class="modal-icon">⚠️</div>
+            <h2>Важное предупреждение</h2>
+            <p>Данный сервис предоставляет информацию <strong>только в ознакомительных целях</strong>.</p>
+            <p>ИИ не может:</p>
+            <ul>
+                <li>Поставить точный диагноз</li>
+                <li>Назначить лечение</li>
+                <li>Заменить очный осмотр врача</li>
+            </ul>
+            <p>При ухудшении самочувствия немедленно обратитесь к специалисту или вызовите скорую помощь.</p>
+            <button class="btn-accept" id="acceptDisclaimer">Я понимаю, продолжить</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно истории -->
+    <div class="modal-overlay" id="historyModal" style="display: none;">
+        <div class="modal modal-history">
+            <h2>📋 История чата</h2>
+            <div id="historyList" class="history-list">
+                <p style="color: #999;">История пуста</p>
+            </div>
+            <div class="history-actions">
+                <button class="btn-accept" id="clearHistory">Очистить историю</button>
+                <button class="btn-secondary" id="closeHistory">Закрыть</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно статьи -->
+    <div class="modal-overlay" id="articleModal" style="display: none;">
+        <div class="modal modal-article">
+            <h2 id="articleTitle"></h2>
+            <div id="articleContent"></div>
+            <button class="btn-accept" id="closeArticle">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно экстренного вызова -->
+    <div class="modal-overlay" id="emergencyModal" style="display: none;">
+        <div class="modal modal-emergency">
+            <div class="modal-icon">🚑</div>
+            <h2>Экстренный вызов</h2>
+            <p>При угрожающих жизни состояниях:</p>
+            <a href="tel:112" class="btn-emergency-call">📞 Позвонить 112</a>
+            <a href="tel:103" class="btn-emergency-call">📞 Позвонить 103 (Скорая)</a>
+            <p style="margin-top: 12px; font-size: 12px; color: #999;">
+                Кнопки работают на мобильных устройствах
+            </p>
+            <button class="btn-secondary" id="closeEmergency">Закрыть</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
