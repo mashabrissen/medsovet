@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МедСовет — Телемедицинская платформа</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon">⚕️</span>
+                <span>МедСовет</span>
+            </div>
+            <nav class="header-nav">
+                <a href="#" class="nav-link active" data-page="home">Главная</a>
+                <a href="#" class="nav-link" data-page="doctors">Врачи</a>
+                <a href="#" class="nav-link" data-page="about">О сервисе</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle" title="Тёмная тема">🌙</button>
+                <button class="btn btn-outline" id="loginBtn">Войти</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Баннер -->
+    <div class="emergency-banner">
+        <div class="container emergency-banner-content">
+            <span>⚠️ <strong>Внимание!</strong> При угрожающих жизни состояниях звоните <strong>112</strong> или <strong>103</strong>.</span>
+            <button class="btn-emergency" id="emergencyBtn">🚑 Вызов скорой</button>
+        </div>
+    </div>
+
+    <main class="container">
+        
+        <!-- ====== СТРАНИЦА: ГЛАВНАЯ (ЧАТ С ИИ) ====== -->
+        <div class="page active" id="page-home">
+            <!-- Инфопанель -->
+            <div class="info-panel">
+                <div class="info-card">
+                    <div class="info-icon">🤖</div>
+                    <h3>ИИ-консультант</h3>
+                    <p>Мгновенные ответы на вопросы о здоровье. Бесплатно.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">👨‍⚕️</div>
+                    <h3>Врачи онлайн</h3>
+                    <p>Консультации с реальными специалистами. От 500 ₽.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">⭐</div>
+                    <h3>Проверено</h3>
+                    <p>Рейтинг врачей и отзывы пациентов.</p>
+                </div>
+            </div>
+
+            <!-- Чат с ИИ -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="doctor-avatar"></div>
+                    <div>
+                        <div class="doctor-name">Доктор ИИ</div>
+                        <div class="doctor-status">онлайн • отвечает мгновенно</div>
+                    </div>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message bot-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <p>Здравствуйте! Я ИИ-консультант. Задайте вопрос о здоровье или перейдите во вкладку <strong>«Врачи»</strong> для консультации со специалистом.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <div class="message bot-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content"><div class="dots"><span></span><span></span><span></span></div></div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <textarea id="userInput" placeholder="Опишите ваши симптомы..." rows="1" maxlength="1000"></textarea>
+                    <button id="sendBtn" class="btn-send">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </button>
+                </div>
+                <div class="char-counter"><span id="charCount">0</span>/1000</div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq-section">
+                <h2>Частые вопросы</h2>
+                <div class="faq-scroll">
+                    <button class="faq-btn">Болит голова и температура 37.5</button>
+                    <button class="faq-btn">Какие витамины принимать зимой?</button>
+                    <button class="faq-btn">Как снизить давление?</button>
+                    <button class="faq-btn">Боль в пояснице — к какому врачу?</button>
+                    <button class="faq-btn">Аллергия на пыльцу</button>
+                    <button class="faq-btn">Простуда: как быстро вылечить?</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== СТРАНИЦА: ВРАЧИ ====== -->
+        <div class="page" id="page-doctors">
+            <div class="doctors-header">
+                <h2>👨‍⚕️ Наши врачи</h2>
+                <div class="doctors-filters">
+                    <select id="specialityFilter" class="filter-select">
+                        <option value="">Все специальности</option>
+                        <option value="therapist">Терапевт</option>
+                        <option value="neurologist">Невролог</option>
+                        <option value="cardiologist">Кардиолог</option>
+                        <option value="pediatrician">Педиатр</option>
+                        <option value="dermatologist">Дерматолог</option>
+                        <option value="psychiatrist">Психиатр</option>
+                    </select>
+                    <input type="text" id="doctorSearch" placeholder="Поиск врача..." class="search-input">
+                </div>
+            </div>
+            <div class="doctors-grid" id="doctorsGrid">
+                <!-- Заполняется через JS -->
+            </div>
+        </div>
+
+        <!-- ====== СТРАНИЦА: О СЕРВИСЕ ====== -->
+        <div class="page" id="page-about">
+            <div class="about-content">
+                <h2>О сервисе МедСовет</h2>
+                <p><strong>МедСовет</strong> — телемедицинская платформа, объединяющая ИИ-консультанта и реальных врачей.</p>
+                <p>Мы помогаем получить быструю консультацию, не выходя из дома.</p>
+                
+                <h3>Возможности</h3>
+                <ul>
+                    <li>🤖 Бесплатный ИИ-консультант 24/7</li>
+                    <li>👨‍⚕️ Консультации с врачами от 500 ₽</li>
+                    <li>⭐ Система отзывов и рейтинга</li>
+                    <li>📅 Удобная запись на приём</li>
+                </ul>
+
+                <h3>Для врачей</h3>
+                <p>Зарегистрируйтесь в системе, чтобы принимать пациентов онлайн. Заполните форму ниже:</p>
+                <button class="btn btn-accent" id="openDoctorRegister">Зарегистрироваться как врач</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>© 2026 МедСовет. Телемедицинская платформа.</p>
+            <p><strong>Внимание:</strong> Сервис не заменяет очный приём. При серьёзных симптомах обратитесь к врачу.</p>
+        </div>
+    </footer>
+
+    <!-- ====== МОДАЛЬНЫЕ ОКНА ====== -->
+
+    <!-- Дисклеймер -->
+    <div class="modal-overlay" id="disclaimerModal">
+        <div class="modal">
+            <div class="modal-icon">⚠️</div>
+            <h2>Важное предупреждение</h2>
+            <p>Данный сервис предоставляет информацию только в ознакомительных целях.</p>
+            <p>ИИ не ставит диагнозы и не назначает лечение.</p>
+            <button class="btn btn-accent" id="acceptDisclaimer">Я понимаю, продолжить</button>
+        </div>
+    </div>
+
+    <!-- Вход -->
+    <div class="modal-overlay" id="loginModal" style="display:none;">
+        <div class="modal">
+            <h2>Вход</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="Email" required class="input-full">
+                <input type="password" placeholder="Пароль" required class="input-full">
+                <button type="submit" class="btn btn-accent full-width">Войти</button>
+            </form>
+            <p style="margin-top:12px;font-size:13px;">Нет аккаунта? <a href="#" id="showRegister">Зарегистрироваться</a></p>
+            <button class="modal-close-btn" data-close="loginModal">✕</button>
+        </div>
+    </div>
+
+    <!-- Регистрация врача -->
+    <div class="modal-overlay" id="doctorRegisterModal" style="display:none;">
+        <div class="modal modal-wide">
+            <h2>🩺 Регистрация врача</h2>
+            <form id="doctorRegisterForm">
+                <input type="text" placeholder="ФИО" required class="input-full">
+                <select required class="input-full">
+                    <option value="">Специальность</option>
+                    <option value="therapist">Терапевт</option>
+                    <option value="neurologist">Невролог</option>
+                    <option value="cardiologist">Кардиолог</option>
+                    <option value="pediatrician">Педиатр</option>
+                    <option value="dermatologist">Дерматолог</option>
+                    <option value="psychiatrist">Психиатр</option>
+                </select>
+                <input type="text" placeholder="Стаж (лет)" required class="input-full">
+                <input type="text" placeholder="Номер лицензии" required class="input-full">
+                <input type="number" placeholder="Стоимость консультации (₽)" required class="input-full">
+                <textarea placeholder="О себе (образование, опыт)" rows="3" class="input-full"></textarea>
+                <input type="url" placeholder="Ссылка на фото" class="input-full">
+                <input type="email" placeholder="Email для входа" required class="input-full">
+                <input type="password" placeholder="Пароль" required class="input-full">
+                <button type="submit" class="btn btn-accent full-width">Зарегистрироваться</button>
+            </form>
+            <button class="modal-close-btn" data-close="doctorRegisterModal">✕</button>
+        </div>
+    </div>
+
+    <!-- Отзыв -->
+    <div class="modal-overlay" id="reviewModal" style="display:none;">
+        <div class="modal">
+            <h2>⭐ Оставить отзыв</h2>
+            <p id="reviewDoctorName"></p>
+            <div class="stars" id="starRating">
+                <span data-star="1">☆</span>
+                <span data-star="2">☆</span>
+                <span data-star="3">☆</span>
+                <span data-star="4">☆</span>
+                <span data-star="5">☆</span>
+            </div>
+            <textarea placeholder="Ваш отзыв..." rows="3" class="input-full" id="reviewText"></textarea>
+            <input type="text" placeholder="Ваше имя" class="input-full" id="reviewAuthor">
+            <button class="btn btn-accent full-width" id="submitReview">Отправить отзыв</button>
+            <button class="modal-close-btn" data-close="reviewModal">✕</button>
+        </div>
+    </div>
+
+    <!-- Запись к врачу -->
+    <div class="modal-overlay" id="appointmentModal" style="display:none;">
+        <div class="modal">
+            <h2>📅 Запись на консультацию</h2>
+            <p id="appointmentDoctorName"></p>
+            <p style="color:var(--green);font-weight:700;" id="appointmentPrice"></p>
+            <input type="date" class="input-full" id="appointmentDate">
+            <select class="input-full" id="appointmentTime">
+                <option value="">Выберите время</option>
+                <option>09:00</option><option>10:00</option><option>11:00</option>
+                <option>13:00</option><option>14:00</option><option>15:00</option>
+                <option>16:00</option><option>17:00</option>
+            </select>
+            <p style="font-size:13px;color:var(--text-secondary);">После записи врач свяжется с вами через чат на платформе.</p>
+            <button class="btn btn-accent full-width" id="confirmAppointment">Подтвердить запись</button>
+            <button class="modal-close-btn" data-close="appointmentModal">✕</button>
+        </div>
+    </div>
+
+    <!-- Экстренный вызов -->
+    <div class="modal-overlay" id="emergencyModal" style="display:none;">
+        <div class="modal modal-emergency">
+            <div class="modal-icon">🚑</div>
+            <h2>Экстренный вызов</h2>
+            <a href="tel:112" class="btn-emergency-call">📞 Позвонить 112</a>
+            <a href="tel:103" class="btn-emergency-call">📞 Позвонить 103 (Скорая)</a>
+            <button class="btn-secondary" id="closeEmergency">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Личный кабинет врача -->
+    <div class="modal-overlay" id="doctorCabinetModal" style="display:none;">
+        <div class="modal modal-wide">
+            <h2>👤 Личный кабинет врача</h2>
+            <div id="cabinetContent">
+                <p style="color:var(--text-secondary);">Войдите, чтобы увидеть свои записи.</p>
+            </div>
+            <button class="modal-close-btn" data-close="doctorCabinetModal">✕</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
